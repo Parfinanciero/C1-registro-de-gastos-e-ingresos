@@ -3,6 +3,7 @@ package com.msvc.ai_scanner.services;
 import com.msvc.ai_scanner.model.entities.Bill;
 import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.repositories.BillRepository;
+import com.msvc.ai_scanner.services.exceptions.BillNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class BillService {
     }
 
     public void delete(Long id){
-        Bill billToDelete = billRepository.findById(id).orElseThrow();
+        Bill billToDelete = billRepository.findById(id).orElseThrow( () -> new BillNotFoundException("We cant delete the bill because there is no bill with the id: "+ id) );
+        billRepository.delete(billToDelete);
     }
 }
