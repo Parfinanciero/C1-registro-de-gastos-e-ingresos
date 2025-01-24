@@ -15,6 +15,7 @@ public class Bill {
     private Long id;
     private String company;
     private LocalDateTime createdAt;
+    private LocalDateTime billDate;
     private Category category;
     private Type type;
     private Long amount;
