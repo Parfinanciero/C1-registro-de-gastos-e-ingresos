@@ -11,3 +11,4 @@ public class BillDtoWoCreatedAt {
     private Long amount;
     private Long userId;
 }
+
