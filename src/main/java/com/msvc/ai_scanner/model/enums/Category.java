@@ -1,5 +1,5 @@
 package com.msvc.ai_scanner.model.enums;
 
 public enum Category {
-    FOOD, TRANSPORTATION, HOME,
+    FOOD, TRANSPORTATION, HOME, HEALTH, TECHNOLOGY, ENTERTAINMENT, FASHION, TAXES, SALARY, PROFITABILITY, LOANS, EXTRAS
 }
