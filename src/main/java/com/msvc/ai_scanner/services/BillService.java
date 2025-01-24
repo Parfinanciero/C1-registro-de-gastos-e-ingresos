@@ -27,4 +27,8 @@ public class BillService {
     public Bill save(Bill bill){
         return billRepository.save(bill);
     }
+
+    public void delete(Long id){
+        Bill billToDelete = billRepository.findById(id).orElseThrow();
+    }
 }
