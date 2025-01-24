@@ -4,6 +4,7 @@ import com.msvc.ai_scanner.model.entities.Bill;
 import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.repositories.BillRepository;
 import com.msvc.ai_scanner.services.exceptions.BillNotFoundException;
+import com.msvc.ai_scanner.services.exceptions.CantCreateBillException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,7 +27,12 @@ public class BillService {
     }
 
     public Bill save(Bill bill){
-        return billRepository.save(bill);
+        try {
+            return billRepository.save(bill);
+        }catch (Exception e){
+            throw new CantCreateBillException("The bill could not be created, try it later :)");
+        }
+
     }
 
     public void delete(Long id){
