@@ -19,7 +19,11 @@ public class BillService {
     }
 
     public List<Bill> findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(Long userId, LocalDateTime beginDate, LocalDateTime endDate, Type type) {
-        return billRepository.findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(userId, beginDate, endDate, type);
+        List<Bill> userBills = billRepository.findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(userId, beginDate, endDate, type);
+
+        if (userBills.isEmpty()) {
+            throw new
+        }
     }
 
     public List<Bill> readAll(){
