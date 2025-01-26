@@ -74,5 +74,4 @@ public class BillExceptionsController {
                 .message("you´re using a request method not supported, please verify the route that you are using ")
                 .build());
     }
-
 }
