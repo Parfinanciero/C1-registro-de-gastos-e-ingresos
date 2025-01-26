@@ -5,6 +5,7 @@ import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.repositories.BillRepository;
 import com.msvc.ai_scanner.services.exceptions.BillNotFoundException;
 import com.msvc.ai_scanner.services.exceptions.CantCreateBillException;
+import com.msvc.ai_scanner.services.exceptions.UserDontHaveRegistersException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,7 +23,10 @@ public class BillService {
         List<Bill> userBills = billRepository.findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(userId, beginDate, endDate, type);
 
         if (userBills.isEmpty()) {
-            throw new
+            throw new UserDontHaveRegistersException("The user does not have any bills registered");
+        }
+        else {
+            return userBills;
         }
     }
 
