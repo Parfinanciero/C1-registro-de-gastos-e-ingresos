@@ -3,6 +3,8 @@ package com.msvc.ai_scanner.controllers;
 import com.msvc.ai_scanner.model.entities.Bill;
 import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.services.BillService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.timelimiter.annotation.TimeLimiter;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 public class BillController {
@@ -21,8 +24,10 @@ public class BillController {
     }
 
     @PostMapping //cambiar la entidad original por el DTO y castearlo en el servicio //MAPPER
-    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
-        return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
+    public CompletableFuture<ResponseEntity<Bill>> createBill(@RequestBody Bill bill) {
+        return CompletableFuture.supplyAsync(()->{
+               return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
+        });
     }
 
     @GetMapping("find/{id}")
@@ -38,4 +43,6 @@ public class BillController {
     public ResponseEntity<?>delete(@PathVariable Long id){
         return ResponseEntity.ok().build();
     }
+
+
 }
