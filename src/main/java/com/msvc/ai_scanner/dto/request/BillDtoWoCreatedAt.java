@@ -3,11 +3,13 @@ package com.msvc.ai_scanner.dto.request;
 import com.msvc.ai_scanner.model.enums.Category;
 import com.msvc.ai_scanner.model.enums.Type;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class BillDtoWoCreatedAt {
     @NotBlank(message = "company is required")
     private String company;

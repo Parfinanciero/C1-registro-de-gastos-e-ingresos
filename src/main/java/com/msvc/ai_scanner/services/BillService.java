@@ -37,7 +37,6 @@ public class BillService {
     
     public Bill save(BillDtoWoCreatedAt billDto){
         try {
-
             Bill newBill = Bill.builder()
                     .company(billDto.getCompany())
                     .category(billDto.getCategory())
