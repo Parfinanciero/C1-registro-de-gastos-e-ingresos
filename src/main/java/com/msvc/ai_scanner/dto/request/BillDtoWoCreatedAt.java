@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,6 +17,8 @@ public class BillDtoWoCreatedAt {
     private String company;
     @NotBlank(message = "category is required")
     private Category category;
+    @NotBlank(message = "Bill date is required")
+    private LocalDateTime billDate;
     @NotBlank(message = "type is required")
     private Type type;
     @NotBlank(message = "amount is required")

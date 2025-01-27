@@ -41,6 +41,7 @@ public class BillService {
                     .company(billDto.getCompany())
                     .category(billDto.getCategory())
                     .type(billDto.getType())
+                    .billDate(billDto.getBillDate())
                     .amount(billDto.getAmount())
                     .userId(billDto.getUserId())
                     .build();
