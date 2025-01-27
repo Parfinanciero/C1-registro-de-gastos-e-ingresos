@@ -1,5 +1,6 @@
 package com.msvc.ai_scanner.services;
 
+import com.msvc.ai_scanner.dto.request.BillDtoWoCreatedAt;
 import com.msvc.ai_scanner.model.entities.Bill;
 import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.repositories.BillRepository;
@@ -33,14 +34,21 @@ public class BillService {
     public List<Bill> readAll(){
         return billRepository.findAll();
     }
-
-    public Bill save(Bill bill){
+    
+    public Bill save(BillDtoWoCreatedAt billDto){
         try {
-            return billRepository.save(bill);
+
+            Bill newBill = Bill.builder()
+                    .company(billDto.getCompany())
+                    .category(billDto.getCategory())
+                    .type(billDto.getType())
+                    .amount(billDto.getAmount())
+                    .userId(billDto.getUserId())
+                    .build();
+            return billRepository.save(newBill);
         }catch (Exception e){
             throw new CantCreateBillException("The bill could not be created, try it later :)");
         }
-
     }
 
     public void delete(Long id){
