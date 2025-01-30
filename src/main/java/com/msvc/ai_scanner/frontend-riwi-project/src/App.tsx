@@ -1,11 +1,13 @@
-import React from 'react'
+import React from 'react';
+import BillForm from './components/FormData';
 
-const App = () => {
-  return (
-    <div>
-      <h1>Hola</h1>
-    </div>
-  )
+function App() {
+    return (
+        <div>
+            <h1>Registro de Gastos</h1>
+            <BillForm />
+        </div>
+    );
 }
 
-export default App
+export default App;
