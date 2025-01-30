@@ -53,6 +53,7 @@ class BillServiceTest {
         testBillDto = new BillDtoWoCreatedAt(
                 "Test Company",
                 Category.ENTERTAINMENT,
+                LocalDateTime.now(),
                 Type.EXPENSE,
                 100L,
                 1L

@@ -16,15 +16,20 @@ import java.time.LocalDateTime;
 public class BillDtoWoCreatedAt {
     @NotBlank(message = "company is required")
     private String company;
-    @NotBlank(message = "category is required")
+
+    @NotNull(message = "category is required")
     private Category category;
-    @NotBlank(message = "Bill date is required")
+
+    @NotNull(message = "Bill date is required")
     private LocalDateTime billDate;
+
     @NotNull(message = "type is required")
     private Type type;
-    @NotBlank(message = "amount is required")
+
+    @NotNull(message = "amount is required")
     private Long amount;
-    @NotBlank(message = "user id is required")
+
+    @NotNull(message = "user id is required")
     private Long userId;
 }
 
