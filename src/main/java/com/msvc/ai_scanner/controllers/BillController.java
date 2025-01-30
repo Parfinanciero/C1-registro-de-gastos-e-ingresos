@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequestMapping("/bills")
 public class BillController {
 
     private final BillService billService;
@@ -38,6 +39,7 @@ public class BillController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
+        billService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
