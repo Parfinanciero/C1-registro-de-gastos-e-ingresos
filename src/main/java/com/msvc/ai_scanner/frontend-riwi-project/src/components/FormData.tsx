@@ -18,7 +18,7 @@ const BillForm: React.FC = () => {
     company: "",
     amount: "",
     date: "",
-    category: Category.CASA,
+    category: Category.HOME,
     type: Type.EXPENSE,
   });
 
