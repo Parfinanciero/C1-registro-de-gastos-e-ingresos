@@ -26,17 +26,25 @@ jobs:
 
       - name: Setup SSH
         run: |
+          # Crear el directorio ~/.ssh si no existe
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
       
+          # Crear el archivo known_hosts si no existe
+          touch ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+      
+          # Añadir la clave privada SSH al archivo id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
       
-          ssh-keygen -F [your_server_ip_or_hostname] || ssh-keyscan -t rsa [your_server_ip_or_hostname] >> ~/.ssh/known_hosts
+          # Si el servidor es accesible por nombre, lo verificamos con ssh-keyscan
+          # Reemplaza `your_server_ip_or_hostname` con la IP real del servidor o su nombre de dominio
+          ssh-keyscan -H your_server_ip_or_hostname >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
       
-          ssh -o StrictHostKeyChecking=no admin_jb_1@your_server_ip "echo 'SSH connection successful'"
-
+          # Probar la conexión SSH
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa admin_jb_1@your_server_ip_or_hostname "echo 'SSH connection successful'"
       - name: Deploy to Server
         run: |
           ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
