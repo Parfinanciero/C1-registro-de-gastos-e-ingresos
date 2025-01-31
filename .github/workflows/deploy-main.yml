@@ -24,12 +24,18 @@ jobs:
           chmod +x mvnw
           ./mvnw clean package -DskipTests
 
-      - name: Setup SSH Connection
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+      
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+      
+          ssh-keygen -F [your_server_ip_or_hostname] || ssh-keyscan -t rsa [your_server_ip_or_hostname] >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+      
+          ssh -o StrictHostKeyChecking=no admin_jb_1@your_server_ip "echo 'SSH connection successful'"
 
       - name: Deploy to Server
         run: |
