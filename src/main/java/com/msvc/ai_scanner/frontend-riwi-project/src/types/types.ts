@@ -8,3 +8,4 @@ export enum Category {
     EXPENSE = "EXPENSE",
     INCOME = "INCOME",
   }
+
