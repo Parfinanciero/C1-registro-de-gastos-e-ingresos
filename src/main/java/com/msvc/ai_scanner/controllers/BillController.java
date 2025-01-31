@@ -1,8 +1,10 @@
 package com.msvc.ai_scanner.controllers;
 
+import com.msvc.ai_scanner.dto.request.BillDtoWoCreatedAt;
 import com.msvc.ai_scanner.model.entities.Bill;
 import com.msvc.ai_scanner.model.enums.Type;
 import com.msvc.ai_scanner.services.BillService;
+import jakarta.validation.Valid;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
+@RequestMapping("/bills")
 public class BillController {
 
     private final BillService billService;
@@ -20,8 +23,8 @@ public class BillController {
         this.billService = billService;
     }
 
-    @PostMapping //cambiar la entidad original por el DTO y castearlo en el servicio //MAPPER
-    public ResponseEntity<Bill> createBill(@RequestBody Bill bill) {
+    @PostMapping
+    public ResponseEntity<Bill> createBill(@RequestBody @Valid BillDtoWoCreatedAt bill) {
         return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
     }
 
@@ -36,6 +39,7 @@ public class BillController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?>delete(@PathVariable Long id){
+        billService.delete(id);
         return ResponseEntity.ok().build();
     }
 }
