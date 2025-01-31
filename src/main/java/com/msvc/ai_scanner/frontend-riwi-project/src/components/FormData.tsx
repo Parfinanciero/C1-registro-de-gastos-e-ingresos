@@ -1,6 +1,6 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Category, Type } from "../types/types"; 
-
+import { Category, Type } from "../types/types";
+import "../styles/FormData.css";
 interface FormData {
   company: string;
   amount: string;
@@ -118,40 +118,44 @@ const BillForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
         <label>Compañía:</label>
         <input
           type="text"
           name="company"
           value={formData.company}
           onChange={handleChange}
+          className="form-input"
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Monto:</label>
         <input
           type="number"
           name="amount"
           value={formData.amount}
           onChange={handleChange}
+          className="form-input"
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Fecha y Hora:</label>
         <input
           type="datetime-local"
           name="date"
           value={formData.date}
           onChange={handleChange}
+          className="form-input"
         />
       </div>
-      <div>
+      <div className="form-group">
         <label>Categoría:</label>
         <select
           name="category"
           value={formData.category}
           onChange={handleChange}
+          className="form-input"
         >
           {Object.values(Category).map((category) => (
             <option key={category} value={category}>
@@ -160,7 +164,7 @@ const BillForm: React.FC = () => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="form-group">
         <label>Tipo:</label>
         <select name="type" value={formData.type} onChange={handleChange}>
           {Object.values(Type).map((type) => (
@@ -170,16 +174,18 @@ const BillForm: React.FC = () => {
           ))}
         </select>
       </div>
-      <div>
-        <button type="button" onClick={handleScanWithAI}>
+      <div className="form-group">
+        <button type="button" onClick={handleScanWithAI} className="form-button scan-button" disabled={loading}>
           {loading ? "Escaneando..." : "Escanear con IA"}
         </button>
       </div>
-      <div>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+      <div className="form-group">
+        <input type="file" accept="image/*" onChange={handleImageChange} className="form-input"/>
       </div>
-      <div>
-        <button type="submit">Enviar</button>
+      <div className="form-group">
+        <button type="submit" className="form-button submit-button">
+          Enviar
+        </button>
       </div>
     </form>
   );

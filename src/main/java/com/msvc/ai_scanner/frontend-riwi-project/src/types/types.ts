@@ -1,6 +1,5 @@
 export enum Category {
   ENTERTAINMENT = "DIVERSION",
-  EXTRAS = "OTROS",
   FASHION = "MODA",
   FOOD = "COMIDA",
   HEALTH = "SALUD",
@@ -10,7 +9,8 @@ export enum Category {
   SALARY = "SALARIO",
   TAXES = "IMPUESTOS",
   TECHNOLOGY = "TECNOLOGIA",
-  TRANSPORTATION = "TRANSPORTE"
+  TRANSPORTATION = "TRANSPORTE",
+  EXTRAS = "OTROS"
   }
   
   export enum Type {
