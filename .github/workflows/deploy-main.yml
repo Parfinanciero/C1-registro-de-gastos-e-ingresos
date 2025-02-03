@@ -26,11 +26,12 @@ jobs:
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        host: "${{ secrets.SSH_HOST }}"
+        username: "${{ secrets.SSH_USER }}"
+        key: "${{ secrets.SSH_PRIVATE_KEY }}"
         port: 2211
         script: |
+          echo "Connecting to ${{ secrets.SSH_HOST }}"
           cd ~/springboot-app/C1-registro-de-gastos-e-ingresos
           git pull origin main
           chmod +x mvnw
