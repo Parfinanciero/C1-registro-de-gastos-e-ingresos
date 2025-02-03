@@ -43,7 +43,7 @@ jobs:
 
           DEPLOY_DIR="/home/admin_jb_1"
           LOGS_DIR="$DEPLOY_DIR/logs"
-          APP_JAR="Authentication-0.0.1-SNAPSHOT.jar"
+          APP_JAR="ai-scanner-0.0.1-SNAPSHOT.jar"
 
           echo "Creando directorio de logs (si no existe)..."
           ssh -p ${{ secrets.SERVER_PORT }} ${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} "mkdir -p $LOGS_DIR"
