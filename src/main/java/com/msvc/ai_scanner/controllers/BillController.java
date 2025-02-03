@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -35,6 +37,11 @@ public class BillController {
                                                                                                @RequestParam Type type
                                                                                                ) {
         return ResponseEntity.ok().body(billService.findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(id, startDate, endDate, type));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> pruebaDeploy(){
+        return new ResponseEntity<>(Collections.singletonMap("respuesta", "hola santi feo"), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
