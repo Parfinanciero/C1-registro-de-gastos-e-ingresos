@@ -18,7 +18,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             cd /home/admin_jb_1/springboot-app/C1-registro-de-gastos-e-ingresos
             git pull origin main
