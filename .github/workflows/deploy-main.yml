@@ -29,6 +29,7 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 2211
         script: |
           cd ~/springboot-app/C1-registro-de-gastos-e-ingresos
           git pull origin main
