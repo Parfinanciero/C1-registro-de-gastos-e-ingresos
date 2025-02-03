@@ -2,39 +2,26 @@ name: Deploy Spring Boot App
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main 
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-    
-    - name: Make Maven Wrapper executable
-      run: chmod +x ./mvnw
-    
-    - name: Build with Maven
-      run: ./mvnw clean package -DskipTests
-    
-    - name: Deploy to VPS
-      uses: appleboy/ssh-action@master
-      with:
-        host: "${{ secrets.SSH_HOST }}"
-        username: "${{ secrets.SSH_USER }}"
-        key: "${{ secrets.SSH_PRIVATE_KEY }}"
-        port: 2211
-        script: |
-          echo "Connecting to ${{ secrets.SSH_HOST }}"
-          cd ~/springboot-app/C1-registro-de-gastos-e-ingresos
-          git pull origin main
-          chmod +x mvnw
-          ./mvnw clean package -DskipTests
-          pkill -f "C1-registro-de-gastos-e-ingresos"
-          nohup java -jar target/C1-registro-de-gastos-e-ingresos-0.0.1-SNAPSHOT.jar &
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Deploy a servidor vía SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /home/admin_jb_1/springboot-app/C1-registro-de-gastos-e-ingresos
+            git pull origin main
+            mvn clean package -DskipTests
+            systemctl restart mi-servicio-java  # Reemplaza con el nombre real del servicio
+
