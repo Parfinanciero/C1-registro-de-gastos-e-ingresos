@@ -1,6 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Category, Type } from "../types/types";
 import "../styles/FormData.css";
+import { FormControl, InputLabel, OutlinedInput, InputAdornment, Select, MenuItem, SelectChangeEvent, TextField } from "@mui/material";
+
 interface FormData {
   company: string;
   amount: string;
@@ -25,7 +27,9 @@ const BillForm: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -43,7 +47,7 @@ const BillForm: React.FC = () => {
     setLoading(true);
 
     const formDataForAPI = new FormData();
-    formDataForAPI.append("apikey", "K86016132788957"); 
+    formDataForAPI.append("apikey", import.meta.env.VITE_OCR_API_KEY);
     formDataForAPI.append("file", image);
     formDataForAPI.append("language", "spa");
 
@@ -57,17 +61,17 @@ const BillForm: React.FC = () => {
       if (data && data.ParsedResults && data.ParsedResults.length > 0) {
         const extractedText = data.ParsedResults[0].ParsedText;
 
-   const companyRegex = /(?:Empresa|Proveedor|Compañía|Factura de|Emisor|Vendedor)\s*[:\-]?\s*(\S(.+)?)/i;
-   const companyMatch = extractedText.match(companyRegex);
-   const company = companyMatch ? companyMatch[1].trim() : "";
+        const companyRegex = /(?:Empresa|Proveedor|Compañía|Factura de|Emisor|Vendedor)\s*[:\-]?\s*(\S(.+)?)/i;
+        const companyMatch = extractedText.match(companyRegex);
+        const company = companyMatch ? companyMatch[1].trim() : "";
 
-   const amountRegex = /(?:Total|Monto|Importe|Cantidad|Precio|Pago)\s*[:$€]?\s*([\d,]+(?:\.\d{2})?)/i;
-   const amountMatch = extractedText.match(amountRegex);
-   const amount = amountMatch ? amountMatch[1].replace(/,/g, "") : "";
+        const amountRegex = /(?:Total|Monto|Importe|Cantidad|Precio|Pago)\s*[:$€]?\s*([\d,]+(?:\.\d{2})?)/i;
+        const amountMatch = extractedText.match(amountRegex);
+        const amount = amountMatch ? amountMatch[1].replace(/,/g, "") : "";
 
-   const dateRegex = /\b(?:\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4}|\d{4}[-\/]\d{2}[-\/]\d{2})\b/i;
-   const dateMatch = extractedText.match(dateRegex);
-   const date = dateMatch ? dateMatch[0] : "";
+        const dateRegex = /\b(?:\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4}|\d{4}[-\/]\d{2}[-\/]\d{2})\b/i;
+        const dateMatch = extractedText.match(dateRegex);
+        const date = dateMatch ? dateMatch[0] : "";
 
         setFormData({
           ...formData,
@@ -120,69 +124,96 @@ const BillForm: React.FC = () => {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-group">
-        <label>Compañía:</label>
-        <input
-          type="text"
+        <TextField
+          label="Compañía"
           name="company"
           value={formData.company}
           onChange={handleChange}
-          className="form-input"
+          variant="outlined"
+          fullWidth
+          sx={{ m: 1 }}
         />
       </div>
-      <div className="form-group">
-        <label>Monto:</label>
-        <input
-          type="number"
+      <FormControl fullWidth sx={{ m: 1 }}>
+        <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-amount"
           name="amount"
           value={formData.amount}
           onChange={handleChange}
-          className="form-input"
+          startAdornment={<InputAdornment position="start">$</InputAdornment>}
+          label="Amount"
         />
-      </div>
+      </FormControl>
       <div className="form-group">
-        <label>Fecha y Hora:</label>
-        <input
+        <TextField
+          label="Fecha y Hora"
           type="datetime-local"
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="form-input"
+          variant="outlined"
+          fullWidth
+          sx={{ m: 1 }}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
       </div>
       <div className="form-group">
-        <label>Categoría:</label>
-        <select
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          className="form-input"
-        >
-          {Object.values(Category).map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </select>
+        <FormControl fullWidth sx={{ m: 1 }}>
+          <InputLabel id="category-select-label">Categoría</InputLabel>
+          <Select
+            labelId="category-select-label"
+            id="category-select"
+            name="category"
+            value={formData.category}
+            onChange={handleCategoryChange}
+            label="Categoría"
+          >
+            {Object.values(Category).map((category) => (
+              <MenuItem key={category} value={category}>
+                {category}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
       <div className="form-group">
-        <label>Tipo:</label>
-        <select name="type" value={formData.type} onChange={handleChange}>
-          {Object.values(Type).map((type) => (
-            <option key={type} value={type}>
-              {type}
-            </option>
-          ))}
-        </select>
+        <FormControl fullWidth sx={{ m: 1 }}>
+          <InputLabel id="type-select-label">Tipo</InputLabel>
+          <Select
+            labelId="type-select-label"
+            id="type-select"
+            name="type"
+            value={formData.type}
+            onChange={handleTypeChange}
+            label="Tipo"
+          >
+            {Object.values(Type).map((type) => (
+              <MenuItem key={type} value={type}>
+                {type}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
       </div>
-      <div className="form-group">
+      <div className="button-group">
         <button type="button" onClick={handleScanWithAI} className="form-button scan-button" disabled={loading}>
           {loading ? "Escaneando..." : "Escanear con IA"}
         </button>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="form-input file-input"
+          id="file-input"
+        />
+        <label htmlFor="file-input" className="form-button file-label">
+          Seleccionar archivo
+        </label>
       </div>
-      <div className="form-group">
-        <input type="file" accept="image/*" onChange={handleImageChange} className="form-input"/>
-      </div>
-      <div className="form-group">
+      <div className="submit-button-container">
         <button type="submit" className="form-button submit-button">
           Enviar
         </button>

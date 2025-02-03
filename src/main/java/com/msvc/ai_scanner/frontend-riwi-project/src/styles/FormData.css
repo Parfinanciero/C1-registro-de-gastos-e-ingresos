@@ -63,5 +63,63 @@
   }
   
   .submit-button:hover {
-    background-color: #218838;
+    background-color: #4E207C;
+    ;
   }
+  /* Contenedor para los botones "Escanear con IA" y "Seleccionar archivo" */
+.button-group {
+  display: flex;
+  gap: 10px; /* Espacio entre los botones */
+  justify-content: center; /* Centrar los botones horizontalmente */
+  margin-bottom: 20px; /* Espacio debajo de los botones */
+}
+
+/* Estilo para el botón "Escanear con IA" */
+.scan-button {
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.scan-button:disabled {
+  background-color: #90caf9;
+  cursor: not-allowed;
+}
+
+/* Estilo para el input de archivo (oculto) */
+.file-input {
+  display: none;
+}
+
+/* Estilo para el botón "Seleccionar archivo" */
+.file-label {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Contenedor para el botón "Enviar" */
+.submit-button-container {
+  display: flex;
+  justify-content: center; /* Centrar el botón horizontalmente */
+}
+
+/* Estilo para el botón "Enviar" */
+.submit-button {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 16px;
+}
