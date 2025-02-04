@@ -66,7 +66,7 @@ class BillControllerTest {
         );
 
         testBill = new Bill(
-                1L,
+                "1",
                 "Test Company",
                 LocalDateTime.now(),
                 LocalDateTime.of(2022,8,10,11,12),
@@ -118,11 +118,11 @@ class BillControllerTest {
 
     @Test
     void delete_ShouldReturnOk() throws Exception {
-        doNothing().when(billService).delete(1L);
+        doNothing().when(billService).delete("1");
 
-        mockMvc.perform(delete("/bills/{id}", 1L))
+        mockMvc.perform(delete("/bills/{id}", "1"))
                 .andExpect(status().isOk());
 
-        verify(billService).delete(1L);
+        verify(billService).delete("1");
     }
 }

@@ -42,7 +42,7 @@ class BillServiceTest {
     void setUp() {
         // Inicializar datos de prueba
         testBill = Bill.builder()
-                .id(1L)
+                .id("1")
                 .company("Test Company")
                 .category(Category.ENTERTAINMENT)
                 .type(Type.EXPENSE)
@@ -141,25 +141,25 @@ class BillServiceTest {
     @Test
     void delete_WhenBillExists_ShouldDeleteBill() {
         // Arrange
-        when(billRepository.findById(1L)).thenReturn(Optional.of(testBill));
+        when(billRepository.findById("1")).thenReturn(Optional.of(testBill));
         doNothing().when(billRepository).delete(any(Bill.class));
 
         // Act
-        billService.delete(1L);
+        billService.delete("1");
 
         // Assert
-        verify(billRepository).findById(1L);
+        verify(billRepository).findById("1");
         verify(billRepository).delete(testBill);
     }
 
     @Test
     void delete_WhenBillDoesNotExist_ShouldThrowException() {
         // Arrange
-        when(billRepository.findById(anyLong())).thenReturn(Optional.empty());
+        when(billRepository.findById(anyString())).thenReturn(Optional.empty());
 
         // Act & Assert
         assertThrows(BillNotFoundException.class, () ->
-                billService.delete(1L)
+                billService.delete("1")
         );
     }
 }

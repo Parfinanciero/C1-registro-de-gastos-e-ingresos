@@ -44,6 +44,7 @@ public class BillService {
                     .billDate(billDto.getBillDate())
                     .amount(billDto.getAmount())
                     .userId(billDto.getUserId())
+                    .createdAt(LocalDateTime.now())
                     .build();
             return billRepository.save(newBill);
         }catch (Exception e){
@@ -51,7 +52,7 @@ public class BillService {
         }
     }
 
-    public void delete(Long id){
+    public void delete(String id){
         Bill billToDelete = billRepository.findById(id).orElseThrow( () -> new BillNotFoundException("We cant delete the bill because there is no bill with the id: "+ id) );
         billRepository.delete(billToDelete);
     }

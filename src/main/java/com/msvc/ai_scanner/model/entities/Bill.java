@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Bill {
     @Id
-    private Long id;
+    private String id;
     private String company;
     @Field(name = "created_at")
     private LocalDateTime createdAt;

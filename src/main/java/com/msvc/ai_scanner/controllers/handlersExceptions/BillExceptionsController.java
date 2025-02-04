@@ -29,7 +29,7 @@ public class BillExceptionsController {
     }
 
     @ExceptionHandler(CantCreateBillException.class)
-    public ResponseEntity<ErrorTemplate> handleCantCreateBillException(Exception ex){
+    public ResponseEntity<ErrorTemplate> handleCantCreateBillException(CantCreateBillException ex){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ErrorTemplate.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .timestamp(LocalDateTime.now())
