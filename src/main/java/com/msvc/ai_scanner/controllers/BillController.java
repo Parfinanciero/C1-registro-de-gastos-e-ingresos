@@ -32,7 +32,7 @@ public class BillController {
         return new ResponseEntity<>(billService.save(bill), HttpStatus.CREATED);
     }
 
-    @GetMapping("find/{id}")localhost:8039/bills
+    @GetMapping("find/{id}")
     public ResponseEntity<List<Bill>> findByUserIdAndBillDateBetweenAndTypeOrderByBillDateDesc(@PathVariable Long id,
                                                                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime startDate,
                                                                                                @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime endDate,
