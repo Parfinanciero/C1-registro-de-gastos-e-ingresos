@@ -1,5 +1,7 @@
 package com.msvc.ai_scanner.model.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.msvc.ai_scanner.model.enums.Category;
 import com.msvc.ai_scanner.model.enums.Type;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Bill {
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private String id;
     private String company;
     @Field(name = "created_at")
